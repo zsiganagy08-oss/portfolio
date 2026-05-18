@@ -32,7 +32,7 @@ import d5Logo from '../assets/tools/d5.png'
 const projects = [
   { id: 1, title: 'The Art Style App', label: 'Design', shortDescription: 'A design case study exploring how art style recommendations could work as a mobile product.', longDescription: "This project started with a clear problem: people who are drawn to art often don't know how to define or develop their personal taste. The app guides users through a visual discovery process — surfacing styles, movements, and artists that match their preferences. Designed end-to-end in Figma, from research and flow mapping to final UI.", photos: [artapp01, artapp02, artapp03, artapp031, artapp04, artapp05], tools: ['figma'], layout: 'column' },
   { id: 2, title: 'My Dream Home', label: 'CAD & Architecture', shortDescription: 'A fully designed residential home — from floor plan to furnished interior, built in pCon Planner.', longDescription: 'Designed entirely from scratch — EG and OG floor plans, structural layout, and a fully furnished interior across every room. The project covers architecture and interior design together, from the entrance to the terrace. All renders produced in pCon Planner.', photos: [cad02, cad01, cad03, cad04, cad05, cad06, cad07, cad12, cad11, cad08, cad10, cad09], tools: ['pcon', 'd5'], layout: 'grid' },
-  { id: 3, title: 'Nature Photography', label: 'Photography', shortDescription: 'A personal photography project capturing nature in and around Bern.', longDescription: 'Shot on a full-frame DSLR across various locations. These images are part of an ongoing personal project.', photos: [nature1, nature2, nature3, nature4, nature5], tools: [null], layout: 'grid' },
+  { id: 3, title: 'Nature Photography', label: 'Photography', shortDescription: 'A personal photography project capturing nature in and around Bern.', longDescription: 'Shot on a full-frame DSLR across various locations. These images are part of an ongoing personal project.', photos: [nature2, nature1, nature3, nature4, nature5], tools: [null], layout: 'grid' },
   { id: 4, title: '"Deadlines"', label: 'Coming Soon', shortDescription: 'Under Development.', longDescription: 'Coming soon.', photos: [null, null, null, null, null, null], tools: [null], layout: 'grid' },
 ]
 
@@ -188,7 +188,7 @@ export default function Work({ onOverlayChange, closeOverlayRef }) {
               transform: visible ? 'translateX(0)' : 'translateX(100%)',
               transition: 'transform 0.5s cubic-bezier(0.4,0,0.2,1)',
               padding: '96px 112px',
-              background: '#343330',
+              background: '#141414',
             }}
           >
             <button onClick={closeProject} className="fixed top-6 left-6 text-white/40 hover:text-white transition-colors z-50">
