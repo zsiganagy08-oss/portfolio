@@ -122,7 +122,7 @@ function draw() {
         display: 'flex', justifyContent: 'flex-end',
         padding: '24px 32px', zIndex: 10, gap: '28px',
       }}>
-        {[['Home', 'hero'], ['Work', 'work'], ['About', 'about'], ['Contact', 'contact']].map(([label, id]) => (
+        {[['Home', 'hero'], ['About', 'about'], ['Work', 'work'], ['Contact', 'contact']].map(([label, id]) => (
           <a key={id} onClick={() => scrollTo(id)} style={{
             fontSize: '11px', color: 'rgba(255,255,255,0.5)',
             textDecoration: 'none', letterSpacing: '1px', cursor: 'pointer',

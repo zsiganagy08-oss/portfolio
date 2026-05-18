@@ -20,13 +20,19 @@ import cad10 from '../assets/cad/eg-furnished.png'
 import cad11 from '../assets/cad/og-furnished.png'
 import cad12 from '../assets/cad/mood1.png'
 
+import nature1 from '../assets/nature/nature1.jpg'
+import nature2 from '../assets/nature/nature2.jpg'
+import nature3 from '../assets/nature/nature3.jpg'
+import nature4 from '../assets/nature/nature4.jpg'
+import nature5 from '../assets/nature/nature5.jpg'
+
 import pconLogo from '../assets/tools/pcon.png'
 import d5Logo from '../assets/tools/d5.png'
 
 const projects = [
   { id: 1, title: 'The Art Style App', label: 'Design', shortDescription: 'A design case study exploring how art style recommendations could work as a mobile product.', longDescription: "This project started with a clear problem: people who are drawn to art often don't know how to define or develop their personal taste. The app guides users through a visual discovery process — surfacing styles, movements, and artists that match their preferences. Designed end-to-end in Figma, from research and flow mapping to final UI.", photos: [artapp01, artapp02, artapp03, artapp031, artapp04, artapp05], tools: ['figma'], layout: 'column' },
   { id: 2, title: 'My Dream Home', label: 'CAD & Architecture', shortDescription: 'A fully designed residential home — from floor plan to furnished interior, built in pCon Planner.', longDescription: 'Designed entirely from scratch — EG and OG floor plans, structural layout, and a fully furnished interior across every room. The project covers architecture and interior design together, from the entrance to the terrace. All renders produced in pCon Planner.', photos: [cad02, cad01, cad03, cad04, cad05, cad06, cad07, cad12, cad11, cad08, cad10, cad09], tools: ['pcon', 'd5'], layout: 'grid' },
-  { id: 3, title: 'Nature Photography', label: 'Photography', shortDescription: 'Coming soon.', longDescription: 'Coming soon.', photos: [null, null, null, null, null, null], tools: [null], layout: 'grid' },
+  { id: 3, title: 'Nature Photography', label: 'Photography', shortDescription: 'A personal photography project capturing nature in and around Bern.', longDescription: 'Shot on a full-frame DSLR across various locations. These images are part of an ongoing personal project.', photos: [nature1, nature2, nature3, nature4, nature5], tools: [null], layout: 'grid' },
   { id: 4, title: '"Deadlines"', label: 'Coming Soon', shortDescription: 'Under Development.', longDescription: 'Coming soon.', photos: [null, null, null, null, null, null], tools: [null], layout: 'grid' },
 ]
 

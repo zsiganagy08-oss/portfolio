@@ -97,7 +97,7 @@ export default function Contact({ onOverlayChange, overlayOpen, closeOverlayRef 
           className="fixed inset-0 z-50 overflow-y-auto flex flex-col items-center justify-start"
           style={{
             padding: '96px 112px',
-            background: '#343330',
+            background: '#7F8999',
             transform: visible ? 'translateX(0)' : 'translateX(100%)',
             transition: visible ? 'transform 0.4s cubic-bezier(0.4,0,0.2,1)' : 'transform 0.4s cubic-bezier(0.4,0,0.2,1)',
           }}
