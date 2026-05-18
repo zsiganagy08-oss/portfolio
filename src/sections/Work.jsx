@@ -28,11 +28,14 @@ import nature5 from '../assets/nature/nature5.jpg'
 
 import pconLogo from '../assets/tools/pcon.png'
 import d5Logo from '../assets/tools/d5.png'
+import canonLogo from '../assets/tools/canon.png'
+
+
 
 const projects = [
   { id: 1, title: 'The Art Style App', label: 'Design', shortDescription: 'A design case study exploring how art style recommendations could work as a mobile product.', longDescription: "This project started with a clear problem: people who are drawn to art often don't know how to define or develop their personal taste. The app guides users through a visual discovery process — surfacing styles, movements, and artists that match their preferences. Designed end-to-end in Figma, from research and flow mapping to final UI.", photos: [artapp01, artapp02, artapp03, artapp031, artapp04, artapp05], tools: ['figma'], layout: 'column' },
   { id: 2, title: 'My Dream Home', label: 'CAD & Architecture', shortDescription: 'A fully designed residential home — from floor plan to furnished interior, built in pCon Planner.', longDescription: 'Designed entirely from scratch — EG and OG floor plans, structural layout, and a fully furnished interior across every room. The project covers architecture and interior design together, from the entrance to the terrace. All renders produced in pCon Planner.', photos: [cad02, cad01, cad03, cad04, cad05, cad06, cad07, cad12, cad11, cad08, cad10, cad09], tools: ['pcon', 'd5'], layout: 'grid' },
-  { id: 3, title: 'Nature Photography', label: 'Photography', shortDescription: 'A personal photography project capturing nature in and around Bern.', longDescription: 'Shot on a full-frame DSLR across various locations. These images are part of an ongoing personal project.', photos: [nature2, nature1, nature3, nature4, nature5], tools: [null], layout: 'grid' },
+  { id: 3, title: 'Nature Photography', label: 'Photography', shortDescription: 'A personal photography project capturing nature in and around Bern.', longDescription: 'Shot on a full-frame DSLR across various locations. These images are part of an ongoing personal project.', photos: [nature2, nature1, nature3, nature4, nature5], tools: ['canon'], layout: 'grid' },
   { id: 4, title: '"Deadlines"', label: 'Coming Soon', shortDescription: 'Under Development.', longDescription: 'Coming soon.', photos: [null, null, null, null, null, null], tools: [null], layout: 'grid' },
 ]
 
@@ -235,7 +238,8 @@ export default function Work({ onOverlayChange, closeOverlayRef }) {
             <h3 className="text-xs font-medium tracking-widest text-white/30 uppercase" style={{ marginBottom: '32px' }}>Tools / equipment used</h3>
             <div className="flex flex-wrap gap-4">
               {selected.tools.map((tool, i) => (
-                <div key={i} className="rounded-xl bg-white/5 border border-white/10 flex items-center justify-center" style={{ width: '120px', height: '80px' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div className="rounded-xl bg-white/5 border border-white/10 flex items-center justify-center" style={{ width: '120px', height: '80px' }}>
                   {tool === 'figma' && (
                     <svg width="32" height="48" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M19 28.5C19 25.9804 20.0009 23.5641 21.7825 21.7825C23.5641 20.0009 25.9804 19 28.5 19C31.0196 19 33.4359 20.0009 35.2175 21.7825C36.9991 23.5641 38 25.9804 38 28.5C38 31.0196 36.9991 33.4359 35.2175 35.2175C33.4359 36.9991 31.0196 38 28.5 38C25.9804 38 23.5641 36.9991 21.7825 35.2175C20.0009 33.4359 19 31.0196 19 28.5Z" fill="#1ABCFE"/>
@@ -251,6 +255,13 @@ export default function Work({ onOverlayChange, closeOverlayRef }) {
                   {tool === 'd5' && (
                     <img src={d5Logo} alt="D5 Render" style={{ maxWidth: '80px', maxHeight: '40px', objectFit: 'contain' }} />
                   )}
+                  {tool === 'canon' && (
+                    <img src={canonLogo} alt="Canon EOS 5D Mark II" style={{ maxWidth: '80px', maxHeight: '40px', objectFit: 'contain' }} />
+                  )}
+                </div>
+                {tool === 'canon' && (
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontFamily: "'Inter', sans-serif" }}>Canon EOS 5D Mark II</p>
+                )}
                 </div>
               ))}
             </div>
