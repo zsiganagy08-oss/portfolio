@@ -256,7 +256,7 @@ export default function Work({ onOverlayChange, closeOverlayRef }) {
                     <img src={d5Logo} alt="D5 Render" style={{ maxWidth: '80px', maxHeight: '40px', objectFit: 'contain' }} />
                   )}
                   {tool === 'canon' && (
-                    <img src={canonLogo} alt="Canon EOS 5D Mark II" style={{ maxWidth: '80px', maxHeight: '40px', objectFit: 'contain' }} />
+                    <img src={canonLogo} alt="Canon EOS 5D Mark II" style={{ maxWidth: '110px', maxHeight: '70px', objectFit: 'contain' }} />
                   )}
                 </div>
                 {tool === 'canon' && (
