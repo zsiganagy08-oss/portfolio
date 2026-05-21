@@ -119,9 +119,15 @@ function draw() {
       {/* Nav */}
       <nav style={{
         position: 'absolute', top: 0, left: 0, right: 0,
-        display: 'flex', justifyContent: 'flex-end',
-        padding: '24px 32px', zIndex: 10, gap: '28px',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        padding: '24px 32px', zIndex: 10,
       }}>
+        <span style={{
+          fontSize: '18px', fontWeight: 800,
+          color: 'rgba(255,255,255,0.8)',
+          fontFamily: "'Inter', sans-serif",
+          letterSpacing: '-1px',
+        }}>ZN</span>
         {[['Home', 'hero'], ['About', 'about'], ['Work', 'work'], ['Contact', 'contact']].map(([label, id]) => (
           <a key={id} onClick={() => scrollTo(id)} style={{
             fontSize: '11px', color: 'rgba(255,255,255,0.5)',
