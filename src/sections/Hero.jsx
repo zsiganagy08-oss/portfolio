@@ -128,13 +128,15 @@ function draw() {
           fontFamily: "'Inter', sans-serif",
           letterSpacing: '-1px',
         }}>ZN</span>
-        {[['Home', 'hero'], ['About', 'about'], ['Work', 'work'], ['Contact', 'contact']].map(([label, id]) => (
-          <a key={id} onClick={() => scrollTo(id)} style={{
-            fontSize: '11px', color: 'rgba(255,255,255,0.5)',
-            textDecoration: 'none', letterSpacing: '1px', cursor: 'pointer',
-            fontFamily: "'Inter', sans-serif",
-          }}>{label}</a>
-        ))}
+        <div style={{ display: 'flex', gap: '28px' }}>
+          {[['Home', 'hero'], ['About', 'about'], ['Work', 'work'], ['Contact', 'contact']].map(([label, id]) => (
+            <a key={id} onClick={() => scrollTo(id)} style={{
+              fontSize: '11px', color: 'rgba(255,255,255,0.5)',
+              textDecoration: 'none', letterSpacing: '1px', cursor: 'pointer',
+              fontFamily: "'Inter', sans-serif",
+            }}>{label}</a>
+          ))}
+        </div>
       </nav>
 
       {/* Role tag */}
