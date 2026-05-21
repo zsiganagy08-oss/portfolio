@@ -1,16 +1,24 @@
 import { useEffect, useRef } from 'react'
+import cad01 from '../assets/cad/exterior1.png'
+import cad02 from '../assets/cad/exterior2.png'
+import cad03 from '../assets/cad/living.png'
+import cad04 from '../assets/cad/kitchen.png'
+import nature1 from '../assets/nature/nature1.jpg'
+import nature2 from '../assets/nature/nature2.jpg'
+import nature3 from '../assets/nature/nature3.jpg'
 
-const COLORS = ['#5C8F5C', '#4A7AB5', '#B08080', '#6BBCC4', '#4A6680']
+const SLIDES = [null, nature2, cad02, nature1, cad04, nature3, cad01, cad03]
 
 export default function Hero() {
   const canvasRef = useRef(null)
-  const colorIdxRef = useRef(0)
   const scrollRef = useRef(0)
   const animRef = useRef(null)
+  const slideIdxRef = useRef(0)
+  const currentImgRef = useRef(null)
+  const nextImgRef = useRef(null)
+  const fadeRef = useRef(1)
+  const fadingRef = useRef(false)
   const intervalRef = useRef(null)
-  const currentColorRef = useRef(COLORS[0])
-  const targetColorRef = useRef(COLORS[0])
-  const lerpRef = useRef(1)
 
   function scrollTo(id) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -25,59 +33,108 @@ export default function Hero() {
       canvas.height = window.innerHeight
     }
 
-    function hexToRgb(hex) {
-      const r = parseInt(hex.slice(1,3),16)
-      const g = parseInt(hex.slice(3,5),16)
-      const b = parseInt(hex.slice(5,7),16)
-      return [r,g,b]
+    function loadImage(src) {
+      return new Promise(res => {
+        const img = new Image()
+        img.onload = () => res(img)
+        img.src = src
+      })
     }
 
-    function lerpColor(a, b, t) {
-      const [ar,ag,ab] = hexToRgb(a)
-      const [br,bg,bb] = hexToRgb(b)
-      const r = Math.round(ar + (br-ar)*t)
-      const g = Math.round(ag + (bg-ag)*t)
-      const bl = Math.round(ab + (bb-ab)*t)
-      return `rgb(${r},${g},${bl})`
+    function drawImageCover(img) {
+      if (!img || img === 'white') return
+      const W = canvas.width, H = canvas.height
+      const iR = img.width / img.height
+      const cR = W / H
+      let sw, sh, sx, sy
+      if (iR > cR) {
+        sh = img.height; sw = sh * cR
+        sx = (img.width - sw) / 2; sy = 0
+      } else {
+        sw = img.width; sh = sw / cR
+        sx = 0; sy = (img.height - sh) / 2
+      }
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H)
     }
 
-function draw() {
+    function draw() {
       const W = canvas.width, H = canvas.height
       const scroll = scrollRef.current
       const scale = 1 + scroll * 0.006
 
-      lerpRef.current = Math.min(1, lerpRef.current + 0.02)
-      const bgColor = lerpColor(currentColorRef.current, targetColorRef.current, lerpRef.current)
-
       ctx.clearRect(0, 0, W, H)
       ctx.globalCompositeOperation = 'source-over'
 
-      // Step 1 — solid black background
       ctx.fillStyle = '#141414'
       ctx.fillRect(0, 0, W, H)
 
-      // Step 2 — draw color rectangle in letter shapes only
       const fontSize = Math.min(W / 5, 160) * scale
       ctx.font = `700 ${fontSize}px 'Inter', system-ui`
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
 
-      // Save state, clip to letter shapes, fill color
-      ctx.save()
-      ctx.beginPath()
-      // Use text as clip path by drawing to offscreen
-      ctx.fillStyle = bgColor
-      // Draw color ONLY where letters are — use destination-out trick
-      // First draw color full screen on a separate layer via globalCompositeOperation
-      ctx.globalCompositeOperation = 'source-over'
-      ctx.fillStyle = bgColor
-      ctx.fillText('Zsigmond Nagy', W/2, H/2)
-      ctx.restore()
+      if (currentImgRef.current === 'white') {
+        ctx.save()
+        ctx.fillStyle = '#ffffff'
+        ctx.fillText('Zsigmond Nagy', W/2, H/2)
+        ctx.restore()
+        ctx.globalCompositeOperation = 'destination-over'
+        ctx.fillStyle = '#141414'
+        ctx.fillRect(0, 0, W, H)
+        ctx.globalCompositeOperation = 'source-over'
+      } else if (currentImgRef.current) {
+        ctx.save()
+        ctx.globalAlpha = fadingRef.current ? fadeRef.current : 1
+        drawImageCover(currentImgRef.current)
+        ctx.globalCompositeOperation = 'destination-in'
+        ctx.globalAlpha = 1
+        ctx.fillStyle = 'white'
+        ctx.fillText('Zsigmond Nagy', W/2, H/2)
+        ctx.restore()
+        ctx.globalCompositeOperation = 'destination-over'
+        ctx.fillStyle = '#141414'
+        ctx.fillRect(0, 0, W, H)
+        ctx.globalCompositeOperation = 'source-over'
 
-      // Step 3 — white stroke outline only
-      
+        if (fadingRef.current && nextImgRef.current && nextImgRef.current !== 'white') {
+          ctx.save()
+          ctx.globalAlpha = 1 - fadeRef.current
+          drawImageCover(nextImgRef.current)
+          ctx.globalCompositeOperation = 'destination-in'
+          ctx.globalAlpha = 1
+          ctx.fillStyle = 'white'
+          ctx.fillText('Zsigmond Nagy', W/2, H/2)
+          ctx.restore()
+          ctx.globalCompositeOperation = 'destination-over'
+          ctx.fillStyle = '#141414'
+          ctx.fillRect(0, 0, W, H)
+          ctx.globalCompositeOperation = 'source-over'
+        }
+      }
+
+      if (fadingRef.current) {
+        fadeRef.current -= 0.008
+        if (fadeRef.current <= 0) {
+          currentImgRef.current = nextImgRef.current
+          fadingRef.current = false
+          fadeRef.current = 1
+        }
+      }
 
       animRef.current = requestAnimationFrame(draw)
+    }
+
+    async function nextSlide() {
+      slideIdxRef.current = (slideIdxRef.current + 1) % SLIDES.length
+      const nextSrc = SLIDES[(slideIdxRef.current + 1) % SLIDES.length]
+      nextImgRef.current = nextSrc === null ? 'white' : await loadImage(nextSrc)
+      fadingRef.current = true
+      fadeRef.current = 1
+    }
+
+    async function init() {
+      currentImgRef.current = SLIDES[0] === null ? 'white' : await loadImage(SLIDES[0])
+      nextImgRef.current = await loadImage(SLIDES[1])
     }
 
     function onScroll() {
@@ -86,14 +143,13 @@ function draw() {
     }
 
     resize()
-    draw()
-
-    intervalRef.current = setInterval(() => {
-      currentColorRef.current = targetColorRef.current
-      colorIdxRef.current = (colorIdxRef.current + 1) % COLORS.length
-      targetColorRef.current = COLORS[colorIdxRef.current]
-      lerpRef.current = 0
-    }, 2500)
+    init().then(() => {
+      draw()
+      setTimeout(() => {
+        nextSlide()
+        intervalRef.current = setInterval(nextSlide, 4000)
+      }, 1000)
+    })
 
     const main = document.querySelector('main')
     if (main) main.addEventListener('scroll', onScroll)
@@ -109,14 +165,8 @@ function draw() {
 
   return (
     <section id="hero" style={{ position: 'relative', height: '100vh', overflow: 'hidden', background: '#141414' }}>
-
-      {/* Bebas Neue font */}
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
-
-      {/* Canvas mask */}
       <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
 
-      {/* Nav */}
       <nav style={{
         position: 'absolute', top: 0, left: 0, right: 0,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -139,7 +189,6 @@ function draw() {
         </div>
       </nav>
 
-      {/* Role tag */}
       <div style={{
         position: 'absolute', top: '64%',
         left: '50%', transform: 'translateX(-50%)',
@@ -151,17 +200,15 @@ function draw() {
           fontFamily: "'Inter', sans-serif", margin: 0, whiteSpace: 'nowrap',
         }}>Designer · Builder · Photographer</p>
       </div>
-      <div
-        onClick={() => scrollTo('about')}
-        style={{
-          position: 'absolute', bottom: '40px', left: '50%',
-          transform: 'translateX(-50%)', cursor: 'pointer',
-        }}>
+
+      <div onClick={() => scrollTo('about')} style={{
+        position: 'absolute', bottom: '40px', left: '50%',
+        transform: 'translateX(-50%)', cursor: 'pointer',
+      }}>
         <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
           <path d="M1 1l5 5 5-5" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round"/>
         </svg>
       </div>
-
     </section>
   )
 }
