@@ -123,15 +123,15 @@ function draw() {
         padding: '24px 32px', zIndex: 10,
       }}>
         <span style={{
-          fontSize: '18px', fontWeight: 800,
-          color: 'rgba(255,255,255,0.8)',
+          fontSize: '28px', fontWeight: 800,
+          color: 'rgba(255,255,255,1)',
           fontFamily: "'Inter', sans-serif",
-          letterSpacing: '-1px',
+          letterSpacing: '-3px',
         }}>ZN</span>
         <div style={{ display: 'flex', gap: '28px' }}>
           {[['Home', 'hero'], ['About', 'about'], ['Work', 'work'], ['Contact', 'contact']].map(([label, id]) => (
             <a key={id} onClick={() => scrollTo(id)} style={{
-              fontSize: '11px', color: 'rgba(255,255,255,0.5)',
+              fontSize: '15px', color: 'rgba(255,255,255,0.5)',
               textDecoration: 'none', letterSpacing: '1px', cursor: 'pointer',
               fontFamily: "'Inter', sans-serif",
             }}>{label}</a>
